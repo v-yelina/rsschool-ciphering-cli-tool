@@ -1,9 +1,9 @@
-// function for Ceasar Cipher encoding/decoding
+// function for ROT-8 encoding/decoding
 
-const caesar = () => {
+const rot8 = () => {
   let text = 'This is secret. Message about "_" symbol!'.split("");
   const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  let action = 0;
+  let action = 1;
 
   let output = [];
 
@@ -19,7 +19,7 @@ const caesar = () => {
         ? (whichCase = "upper")
         : (whichCase = "lower");
       indF = alphabet.indexOf(char.toUpperCase());
-      action === 1 ? (indT = indF + 1) : (indT = indF - 1);
+      action === 1 ? (indT = indF + 8) : (indT = indF - 8);
 
       if (indT > alphabet.length - 1) {
         indT -= alphabet.length;
@@ -39,4 +39,4 @@ const caesar = () => {
   return output.join("");
 };
 
-console.log(caesar());
+console.log(rot8());
