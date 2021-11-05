@@ -1,9 +1,8 @@
 // function for Ceasar Cipher encoding/decoding
 
-const caesar = () => {
-  let text = 'This is secret. Message about "_" symbol!'.split("");
+const caesar = (input, action) => {
+  let text = input;
   const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  let action = 0;
 
   let output = [];
 
@@ -39,4 +38,4 @@ const caesar = () => {
   return output.join("");
 };
 
-console.log(caesar());
+module.exports = caesar;

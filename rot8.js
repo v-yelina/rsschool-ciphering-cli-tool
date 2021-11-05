@@ -1,9 +1,9 @@
 // function for ROT-8 encoding/decoding
 
-const rot8 = () => {
-  let text = 'This is secret. Message about "_" symbol!'.split("");
+const rot8 = (input, action) => {
+  let text = input.split("");
   const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  let action = 1;
+  //   let action = 1;
 
   let output = [];
 
@@ -39,4 +39,4 @@ const rot8 = () => {
   return output.join("");
 };
 
-console.log(rot8());
+module.exports = rot8;

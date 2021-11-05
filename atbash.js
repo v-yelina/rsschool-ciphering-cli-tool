@@ -1,7 +1,7 @@
 // function for Atbash encoding/decoding
 
-const atbash = () => {
-  let text = 'Nbcm cm mywlyn. Gymmuay uvion "_" msgvif!'.split("");
+const atbash = (input) => {
+  let text = input.split("");
   const alphabetBefore = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   const alphabetAfter = "ZYXWVUTSRQPONMLKJIHGFEDCBA";
 
@@ -33,4 +33,4 @@ const atbash = () => {
   return output.join("");
 };
 
-console.log(atbash());
+module.exports = atbash;
