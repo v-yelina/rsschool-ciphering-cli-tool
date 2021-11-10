@@ -1,59 +1,27 @@
-// const fs = require("fs");
-const processs = require("process");
+const fs = require("fs");
+const { Stream } = require("stream");
+const optionsHandling = require("./optionsHandling");
+const ciphering = require("./ciphering/ciphering");
 
-
-// const readableStream = fs.createReadStream("source.txt", 'utf-8');
-
-// let data = '';
-
-// readableStream.on('data', chunk => data += chunk);
-// readableStream.on("end", () => console.log("End", data));
-// readableStream.on("error", (error) => console.log("Error", error.message));
+const argumentsArray = optionsHandling();
+const inputFile = argumentsArray[0];
+const outputFile = argumentsArray[1];
 
 console.log("Hi there!");
 
-let arguments = processs.argv.slice(2);
-let inputFile;
-let outputFile;
+const streams = ciphering(); // array of transform streams
 
+streams.unshift(
+  inputFile ? fs.createReadStream(inputFile, "utf-8") : process.stdin
+); // add readable stream to array
+streams.push(outputFile ? fs.createWriteStream(outputFile) : process.stdout); // add writable stream to array
 
-if (arguments[0] !== '-c' && arguments[0] !== '--config') {
-    throw new Error("Config option is required. Please enter config for ciphers");
-}
-
-let duplicates = [...arguments];
-for (let i = 0; i < duplicates.length; i++) {
-    if (duplicates[i] === '--config') {
-        duplicates[i] = '-c';
-    } else if (duplicates[i] === '--input') {
-        duplicates[i] = '-i';
-    } else if (duplicates[i] === '--output') {
-        duplicates[i] = '-o';
+try {
+  Stream.pipeline(...streams, (err) => {
+    if (err) {
+      console.error("pipeline-error: ", err);
     }
+  });
+} catch (err) {
+  console.error("pipeline failed with error:", err);
 }
-
-let findDuplicates = Object.values(duplicates.reduce((c, v) => {
-  c[v] = c[v] || [v, 0];
-  c[v][1]++;
-  return c;
-},{})).map(o=>({[o[0]] : o[1]}));
-
-for (let item of findDuplicates) {
-    if (Object.values(item)[0] > 1) {
-        throw new Error(`Option ${Object.keys(item)[0]} is duplicated. Please enter options list without duplication`);
-    }
-}
-
-const cipheringOrder = arguments[1];
-
-for (let i = 2; i < arguments.length; i++) {
-    if (arguments[i] === '-i' || arguments[i] === '--input') {
-        inputFile = arguments[i + 1];
-    } else if (arguments[i] === '-o' || arguments[i] === '--output') {
-        outputFile = arguments[i + 1];
-    }
-}
-
-console.log(inputFile, outputFile);
-
-
