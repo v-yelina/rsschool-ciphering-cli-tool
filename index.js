@@ -14,7 +14,9 @@ const streams = ciphering(); // array of transform streams
 streams.unshift(
   inputFile ? fs.createReadStream(inputFile, "utf-8") : process.stdin
 ); // add readable stream to array
-streams.push(outputFile ? fs.createWriteStream(outputFile) : process.stdout); // add writable stream to array
+streams.push(
+  outputFile ? fs.createWriteStream(outputFile, { flags: "a" }) : process.stdout
+); // add writable stream to array
 
 try {
   Stream.pipeline(...streams, (err) => {
