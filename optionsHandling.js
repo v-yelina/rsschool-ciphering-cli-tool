@@ -1,3 +1,4 @@
+const fs = require('fs');
 const { stderr } = require("process");
 const processs = require("process");
 
@@ -12,7 +13,7 @@ const optionsHandling = () => {
 
     // Check if there is required config option
     if (!arguments.includes('-c') && !arguments.includes('--config')) {
-        stderr.write("Config option is required. Please enter config for ciphers");
+        stderr.write("ERROR: Config option is required. Please enter config for ciphers");
         process.exit(1);
     }
 
@@ -36,7 +37,7 @@ const optionsHandling = () => {
 
     for (let item of findDuplicates) {
         if (Object.values(item)[0] > 1) {
-            stderr.write(`Option ${Object.keys(item)[0]} is duplicated. Please enter arguments list without duplication`);
+            stderr.write(`ERROR: Option ${Object.keys(item)[0]} is duplicated. Please enter arguments list without duplication`);
             process.exit(1);
         }
     }
@@ -54,12 +55,28 @@ const optionsHandling = () => {
     }
 
 
-    try {
-        /^([A-Z0-9]{1,2}-)*[A-Z0-9]{1,2}$/g.test(cipheringOrder);
-    } catch (error) {
+    // Check config option pattern
+    if (!/^([A-Z0-9]{1,2}-)*[A-Z0-9]{1,2}$/g.test(cipheringOrder)) {
         stderr.write('ERROR: Invalid config option. Should be a string with pattern {XY(-)}n');
         process.exit(1);
     }
+
+    // Check existence and permissions of input and output files
+    try {
+        fs.accessSync(inputFile, fs.constants.R_OK);
+    } catch (err) {
+        stderr.write("ERROR: Input file doesn't exist or there is not permission to read it");
+        process.exit(1);
+    }
+
+    try {
+        fs.accessSync(outputFile, fs.constants.W_OK);
+    } catch (err) {
+        stderr.write("ERROR: Output file doesn't exist or there is not permission to write in it");
+        process.exit(1);
+    }
+
+
     return [inputFile, outputFile, cipheringOrder];
 }
 

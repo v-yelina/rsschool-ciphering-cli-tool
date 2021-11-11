@@ -7,8 +7,6 @@ const argumentsArray = optionsHandling();
 const inputFile = argumentsArray[0];
 const outputFile = argumentsArray[1];
 
-console.log("Hi there!");
-
 const streams = ciphering(); // array of transform streams
 
 streams.unshift(
@@ -21,9 +19,11 @@ streams.push(
 try {
   Stream.pipeline(...streams, (err) => {
     if (err) {
-      console.error("pipeline-error: ", err);
+      console.error("ERROR: ", err.message);
+      process.exit(1);
     }
   });
 } catch (err) {
-  console.error("pipeline failed with error:", err);
+  console.error("ERROR: ", err.message);
+  process.exit(1);
 }

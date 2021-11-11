@@ -1,3 +1,4 @@
+const { stderr } = require("process");
 const optionsHandling = require("../optionsHandling");
 const caesarTr = require("../cipheringTransformStreams/caesarTr");
 const rot8Tr = require("../cipheringTransformStreams/rot8Tr");
@@ -26,7 +27,10 @@ const ciphering = () => {
         output.push(new atbashTr());
         break;
       default:
-        return "There is not such a ciphering case";
+        stderr.write(
+          "There is not such a ciphering case. Available cases: C1, C0, R1, R0, A"
+        );
+        process.exit(1);
     }
   }
 
