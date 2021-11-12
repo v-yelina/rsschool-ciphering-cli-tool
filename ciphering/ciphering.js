@@ -1,8 +1,8 @@
 const { stderr } = require("process");
 const optionsHandling = require("../optionsHandling");
-const caesarTr = require("../cipheringTransformStreams/caesarTr");
-const rot8Tr = require("../cipheringTransformStreams/rot8Tr");
-const atbashTr = require("../cipheringTransformStreams/atbashTr");
+const caesarTr = require("../streams/caesarTr");
+const rot8Tr = require("../streams/rot8Tr");
+const atbashTr = require("../streams/atbashTr");
 
 const ciphering = () => {
   const cipheringOrder = optionsHandling()[2].split("-");

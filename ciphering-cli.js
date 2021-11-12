@@ -6,11 +6,15 @@ const ciphering = require("./ciphering/ciphering");
 const argumentsArray = optionsHandling();
 const inputFile = argumentsArray[0];
 const outputFile = argumentsArray[1];
+const stats = fs.statSync(inputFile);
+const inputSize = stats.size;
 
 const streams = ciphering(); // array of transform streams
 
 streams.unshift(
-  inputFile ? fs.createReadStream(inputFile, "utf-8") : process.stdin
+  inputFile
+    ? fs.createReadStream(inputFile, { encoding: "utf-8", end: inputSize })
+    : process.stdin
 ); // add readable stream to array
 streams.push(
   outputFile ? fs.createWriteStream(outputFile, { flags: "a" }) : process.stdout

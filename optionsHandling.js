@@ -18,14 +18,14 @@ const optionsHandling = () => {
     }
 
     // Check if some arguments are duplicated
-    let duplicates = [...arguments];
-    for (let i = 0; i < duplicates.length; i++) {
-        if (duplicates[i] === '--config') {
-            duplicates[i] = '-c';
-        } else if (duplicates[i] === '--input') {
-            duplicates[i] = '-i';
-        } else if (duplicates[i] === '--output') {
-            duplicates[i] = '-o';
+    let duplicates = [];
+    for (let i = 0; i < arguments.length; i++) {
+        if (arguments[i] === '--config' || arguments[i] === '-c') {
+            duplicates.push('-c');
+        } else if (arguments[i] === '--input' || arguments[i] === '-i') {
+            duplicates.push('-i');
+        } else if (arguments[i] === '--output' || arguments[i] === '-o') {
+            duplicates.push('-o');
         }
     }
 
@@ -81,6 +81,6 @@ const optionsHandling = () => {
 }
 
 module.exports = optionsHandling;
-exports.inputFile = this.inputFile;
-exports.outputFile = this.outputFile;
-exports.cipheringOrder = this.cipheringOrder;
+// exports.inputFile = this.inputFile;
+// exports.outputFile = this.outputFile;
+// exports.cipheringOrder = this.cipheringOrder;
