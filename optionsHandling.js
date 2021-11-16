@@ -63,24 +63,24 @@ const optionsHandling = () => {
 
     // Check existence and permissions of input and output files
     try {
-        fs.accessSync(inputFile, fs.constants.R_OK);
+        if (inputFile) {
+            fs.accessSync(inputFile, fs.constants.R_OK);
+        }
     } catch (err) {
         stderr.write("ERROR: Input file doesn't exist or there is not permission to read it");
         process.exit(1);
     }
 
     try {
-        fs.accessSync(outputFile, fs.constants.W_OK);
+        if (outputFile) {
+            fs.accessSync(outputFile, fs.constants.W_OK);
+        }
     } catch (err) {
         stderr.write("ERROR: Output file doesn't exist or there is not permission to write in it");
         process.exit(1);
     }
 
-
     return [inputFile, outputFile, cipheringOrder];
 }
 
 module.exports = optionsHandling;
-// exports.inputFile = this.inputFile;
-// exports.outputFile = this.outputFile;
-// exports.cipheringOrder = this.cipheringOrder;

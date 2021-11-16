@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/v-yelina/rsschool-ciphering-cli-tool/issues"
   },
-  "homepage": "https://github.com/v-yelina/rsschool-ciphering-cli-tool#readme"
+  "homepage": "https://github.com/v-yelina/rsschool-ciphering-cli-tool#readme",
+  "devDependencies": {
+    "jest": "^27.3.1"
+  }
 }

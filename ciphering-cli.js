@@ -6,8 +6,13 @@ const ciphering = require("./ciphering/ciphering");
 const argumentsArray = optionsHandling();
 const inputFile = argumentsArray[0];
 const outputFile = argumentsArray[1];
-const stats = fs.statSync(inputFile);
-const inputSize = stats.size;
+let stats;
+let inputSize;
+
+if (inputFile) {
+  stats = fs.statSync(inputFile);
+  inputSize = stats.size;
+}
 
 const streams = ciphering(); // array of transform streams
 
