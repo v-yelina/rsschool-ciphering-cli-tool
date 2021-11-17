@@ -1,6 +1,6 @@
 const fs = require("fs");
 const { Stream } = require("stream");
-const optionsHandling = require("./optionsHandling");
+const optionsHandling = require("./optionsHandling/optionsHandling");
 const ciphering = require("./ciphering/ciphering");
 
 const argumentsArray = optionsHandling();

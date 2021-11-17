@@ -1,5 +1,5 @@
 const { stderr } = require("process");
-const optionsHandling = require("../optionsHandling");
+const optionsHandling = require("../optionsHandling/optionsHandling");
 const caesarTr = require("../streams/caesarTr");
 const rot8Tr = require("../streams/rot8Tr");
 const atbashTr = require("../streams/atbashTr");
