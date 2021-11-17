@@ -1,6 +1,3 @@
-const { stderr } = require("process");
-const process = require("process");
-
 // Check if some options are duplicated
 const isDuplicated = (options) => {
   let duplicates = [];

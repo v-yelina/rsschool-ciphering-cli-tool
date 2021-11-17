@@ -1,10 +1,6 @@
 const { TestWatcher } = require("@jest/core");
 const { isConfigHere } = require("../optionsHandling/optionsExports");
 
-// const isConfigHere = (args) => {
-//   return args.includes("-c") || args.includes("--config");
-// };
-
 test("Config option existed, short version of option", () => {
   expect(
     isConfigHere([
