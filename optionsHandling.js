@@ -12,73 +12,93 @@ const optionsHandling = () => {
     let cipheringOrder;
 
     // Check if there is required config option
-    if (!arguments.includes('-c') && !arguments.includes('--config')) {
-        stderr.write("ERROR: Config option is required. Please enter config for ciphers");
-        process.exit(1);
-    }
-
-    // Check if some arguments are duplicated
-    let duplicates = [];
-    for (let i = 0; i < arguments.length; i++) {
-        if (arguments[i] === '--config' || arguments[i] === '-c') {
-            duplicates.push('-c');
-        } else if (arguments[i] === '--input' || arguments[i] === '-i') {
-            duplicates.push('-i');
-        } else if (arguments[i] === '--output' || arguments[i] === '-o') {
-            duplicates.push('-o');
+    const isConfigHere = () => {
+        if (!arguments.includes('-c') && !arguments.includes('--config')) {
+         stderr.write("ERROR: Config option is required. Please enter config for ciphers");
+         process.exit(1);
         }
     }
 
-    let findDuplicates = Object.values(duplicates.reduce((c, v) => {
-        c[v] = c[v] || [v, 0];
-        c[v][1]++;
-        return c;
-    }, {})).map(o => ({ [o[0]]: o[1] }));
 
-    for (let item of findDuplicates) {
-        if (Object.values(item)[0] > 1) {
-            stderr.write(`ERROR: Option ${Object.keys(item)[0]} is duplicated. Please enter arguments list without duplication`);
-            process.exit(1);
+    // Check if some arguments are duplicated
+    const isDuplicated = () => {
+        let duplicates = [];
+        for (let i = 0; i < arguments.length; i++) {
+            if (arguments[i] === '--config' || arguments[i] === '-c') {
+                duplicates.push('-c');
+            } else if (arguments[i] === '--input' || arguments[i] === '-i') {
+                duplicates.push('-i');
+            } else if (arguments[i] === '--output' || arguments[i] === '-o') {
+                duplicates.push('-o');
+            }
+        }
+
+        let findDuplicates = Object.values(duplicates.reduce((c, v) => {
+            c[v] = c[v] || [v, 0];
+            c[v][1]++;
+            return c;
+        }, {})).map(o => ({ [o[0]]: o[1] }));
+
+        for (let item of findDuplicates) {
+           if (Object.values(item)[0] > 1) {
+               stderr.write(`ERROR: Option ${Object.keys(item)[0]} is duplicated. Please enter arguments list without duplication`);
+                process.exit(1);
+            }
         }
     }
 
     // Passing Ciphering order, input file and out file to variables
 
-    for (let i = 0; i < arguments.length; i++) {
-        if (arguments[i] === '-c' || arguments[i] === '--config') {
-            cipheringOrder = arguments[i + 1];
-        } else if (arguments[i] === '-i' || arguments[i] === '--input') {
-            inputFile = arguments[i + 1];
-        } else if (arguments[i] === '-o' || arguments[i] === '--output') {
-            outputFile = arguments[i + 1];
+    const passArguments = () => {
+        for (let i = 0; i < arguments.length; i++) {
+            if (arguments[i] === '-c' || arguments[i] === '--config') {
+                cipheringOrder = arguments[i + 1];
+            } else if (arguments[i] === '-i' || arguments[i] === '--input') {
+                inputFile = arguments[i + 1];
+            } else if (arguments[i] === '-o' || arguments[i] === '--output') {
+                outputFile = arguments[i + 1];
+            }
         }
     }
 
 
     // Check config option pattern
-    if (!/^([A-Z0-9]{1,2}-)*[A-Z0-9]{1,2}$/g.test(cipheringOrder)) {
-        stderr.write('ERROR: Invalid config option. Should be a string with pattern {XY(-)}n');
-        process.exit(1);
+    const checkConfig = () => {
+        if (!/^([A-Z0-9]{1,2}-)*[A-Z0-9]{1,2}$/g.test(cipheringOrder)) {
+            stderr.write('ERROR: Invalid config option. Should be a string with pattern {XY(-)}n');
+            process.exit(1);
+        }
     }
 
     // Check existence and permissions of input and output files
-    try {
-        if (inputFile) {
-            fs.accessSync(inputFile, fs.constants.R_OK);
+    const checkInputFile = () => {
+        try {
+            if (inputFile) {
+                fs.accessSync(inputFile, fs.constants.R_OK);
+            }
+        } catch (err) {
+            stderr.write("ERROR: Input file doesn't exist or there is not permission to read it");
+            process.exit(1);
         }
-    } catch (err) {
-        stderr.write("ERROR: Input file doesn't exist or there is not permission to read it");
-        process.exit(1);
     }
 
-    try {
-        if (outputFile) {
-            fs.accessSync(outputFile, fs.constants.W_OK);
+    const checkOutputFile = () => {
+        try {
+            if (outputFile) {
+                fs.accessSync(outputFile, fs.constants.W_OK);
+            }
+        } catch (err) {
+            stderr.write("ERROR: Output file doesn't exist or there is not permission to write in it");
+            process.exit(1);
         }
-    } catch (err) {
-        stderr.write("ERROR: Output file doesn't exist or there is not permission to write in it");
-        process.exit(1);
     }
+
+    isConfigHere();
+    isDuplicated();
+    passArguments();
+    checkConfig();
+    checkInputFile();
+    checkOutputFile();
 
     return [inputFile, outputFile, cipheringOrder];
 }
