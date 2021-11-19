@@ -1,21 +1,25 @@
 const rot8 = require("../ciphering/rot8");
 
-test("Check rot8 ciphering, english alphabet, encoding", () => {
-  expect(rot8("abcdEFGH", 1)).toBe("ijklMNOP");
+describe("Checking ROT-8 ciphering, encodind", () => {
+  test("English alphabet, the result should be as provided", () => {
+    expect(rot8("abcdEFGH", 1)).toBe("ijklMNOP");
+  });
+
+  test("English alphabet and symbols, symbols should be ignored", () => {
+    expect(rot8("This is secret. Message about '_' symbol!", 1)).toBe(
+      "Bpqa qa amkzmb. Umaaiom ijwcb '_' agujwt!"
+    );
+  });
+
+  test("Cyrillic alphabet, should be ignored", () => {
+    expect(rot8("абв", 1)).toBe("абв");
+  });
 });
 
-test("Check rot8 ciphering, english alphabet and symbols, encoding", () => {
-  expect(rot8("This is secret. Message about '_' symbol!", 1)).toBe(
-    "Bpqa qa amkzmb. Umaaiom ijwcb '_' agujwt!"
-  );
-});
-
-test("Check rot8 ciphering, cyrillic alphabet, encoding", () => {
-  expect(rot8("абв", 1)).toBe("абв");
-});
-
-test("Check rot8 ciphering, english alphabet and symbols, decoding", () => {
-  expect(rot8("This is secret. Message about '_' symbol!", 0)).toBe(
-    "Lzak ak kwujwl. Ewkksyw stgml '_' kqetgd!"
-  );
+describe("Checking ROT-8 ciphering, decodind", () => {
+  test("English alphabet, the result should be as provided", () => {
+    expect(rot8("This is secret. Message about '_' symbol!", 0)).toBe(
+      "Lzak ak kwujwl. Ewkksyw stgml '_' kqetgd!"
+    );
+  });
 });

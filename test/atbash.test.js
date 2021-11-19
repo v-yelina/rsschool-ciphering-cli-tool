@@ -1,15 +1,17 @@
 const atbash = require("../ciphering/atbash");
 
-test("Check atbash ciphering, english alphabet", () => {
-  expect(atbash("abcdEFGH")).toBe("zyxwVUTS");
-});
+describe("Checking atbash ciphering", () => {
+  test("Check english alphabet, result should be as provided", () => {
+    expect(atbash("abcdEFGH")).toBe("zyxwVUTS");
+  });
 
-test("Check atbash ciphering, english alphabet and symbols", () => {
-  expect(atbash("This is secret. Message about '_' symbol!")).toBe(
-    "Gsrh rh hvxivg. Nvhhztv zylfg '_' hbnylo!"
-  );
-});
+  test("English alphabet and symbols, symbols should be ignored", () => {
+    expect(atbash("This is secret. Message about '_' symbol!")).toBe(
+      "Gsrh rh hvxivg. Nvhhztv zylfg '_' hbnylo!"
+    );
+  });
 
-test("Check atbash ciphering, cyrillic alphabet", () => {
-  expect(atbash("абв")).toBe("абв");
+  test("Cyrillic alphabet, should be ignored", () => {
+    expect(atbash("абв")).toBe("абв");
+  });
 });
