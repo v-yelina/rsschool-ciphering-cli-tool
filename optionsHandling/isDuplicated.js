@@ -1,3 +1,6 @@
+const { stderr } = require("process");
+const process = require("process");
+
 // Check if some options are duplicated
 const isDuplicated = (options) => {
   let duplicates = [];
@@ -19,7 +22,16 @@ const isDuplicated = (options) => {
     }, {})
   ).map((o) => ({ [o[0]]: o[1] }));
 
-  return findDuplicates;
+  for (let item of findDuplicates) {
+    if (Object.values(item)[0] > 1) {
+      stderr.write(
+        `ERROR: Option ${
+          Object.keys(item)[0]
+        } is duplicated. Please enter options list without duplication`
+      );
+      process.exit(1);
+    }
+  }
 };
 
 module.exports = isDuplicated;

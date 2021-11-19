@@ -3,6 +3,7 @@ const isDuplicated = require("./isDuplicated");
 const checkConfig = require("./checkConfig");
 const checkInputFile = require("./checkInputFile");
 const checkOutputFile = require("./checkOutputFile");
+const passArguments = require("./passArguments");
 
 module.exports = {
   isConfigHere,
@@ -10,4 +11,5 @@ module.exports = {
   checkConfig,
   checkInputFile,
   checkOutputFile,
+  passArguments,
 };

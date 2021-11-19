@@ -14,6 +14,10 @@ test("Check caesar ciphering, cyrillic alphabet, encoding", () => {
   expect(caesar("абв", 1)).toBe("абв");
 });
 
+test("Index of encoded symbol more then anphabet length, encoding", () => {
+  expect(caesar("Z", 1)).toBe("A");
+});
+
 test("Check caesar ciphering, english alphabet and symbols, decoding", () => {
   expect(caesar("This is secret. Message about '_' symbol!", 0)).toBe(
     "Sghr hr rdbqds. Ldrrzfd zants '_' rxlank!"

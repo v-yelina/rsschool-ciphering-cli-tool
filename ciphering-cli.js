@@ -3,18 +3,19 @@ const { Stream } = require("stream");
 const optionsHandling = require("./optionsHandling/optionsHandling");
 const ciphering = require("./ciphering/ciphering");
 
-const argumentsArray = optionsHandling();
+const argumentsArray = optionsHandling(process.argv.slice(2));
 const inputFile = argumentsArray[0];
 const outputFile = argumentsArray[1];
+const cipheringOrder = argumentsArray[2].split("-");
 let stats;
 let inputSize;
-
+console.log(argumentsArray);
 if (inputFile) {
   stats = fs.statSync(inputFile);
   inputSize = stats.size;
 }
 
-const streams = ciphering(); // array of transform streams
+const streams = ciphering(cipheringOrder); // array of transform streams
 
 streams.unshift(
   inputFile

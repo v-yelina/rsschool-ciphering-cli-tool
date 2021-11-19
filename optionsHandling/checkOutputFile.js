@@ -1,7 +1,6 @@
 const fs = require("fs");
 const { stderr } = require("process");
 const process = require("process");
-const checkInputFile = require("./checkInputFile");
 
 // Check existence and permissions of input file
 const checkOutputFile = (outputFile) => {

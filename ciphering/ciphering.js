@@ -1,12 +1,9 @@
 const { stderr } = require("process");
-const optionsHandling = require("../optionsHandling/optionsHandling");
 const caesarTr = require("../streams/caesarTr");
 const rot8Tr = require("../streams/rot8Tr");
 const atbashTr = require("../streams/atbashTr");
 
-const ciphering = () => {
-  const cipheringOrder = optionsHandling()[2].split("-");
-
+const ciphering = (cipheringOrder) => {
   let output = []; // array of transform streams, depending on config option
 
   for (let ciph of cipheringOrder) {
@@ -33,7 +30,7 @@ const ciphering = () => {
         process.exit(1);
     }
   }
-
+  console.log(output);
   return output;
 };
 
