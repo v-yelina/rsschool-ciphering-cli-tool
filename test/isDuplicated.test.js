@@ -1,5 +1,7 @@
 const { isDuplicated } = require("../optionsHandling/optionsExports");
 
+// Input: User passes the same cli argument twice; Result: Error message is shown;
+
 test("Running with duplicate option should throw an error and exit a process", () => {
   let stderr = "";
   jest

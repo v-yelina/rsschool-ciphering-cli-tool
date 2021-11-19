@@ -30,7 +30,6 @@ const ciphering = (cipheringOrder) => {
         process.exit(1);
     }
   }
-  console.log(output);
   return output;
 };
 

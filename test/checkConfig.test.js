@@ -1,6 +1,8 @@
 const { TestWatcher } = require("@jest/core");
 const { checkConfig } = require("../optionsHandling/optionsExports");
 
+// Input: User passes incorrent symbols in argument for --config; Result: Error message is shown;
+
 test("Running with config with wrong pattern should throw an error and exit a process", () => {
   let stderr = "";
   jest

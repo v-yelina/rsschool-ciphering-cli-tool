@@ -1,6 +1,8 @@
 const { TestWatcher } = require("@jest/core");
 const { isConfigHere } = require("../optionsHandling/optionsExports");
 
+// Input: User doesn't pass -c or --config argument; Result: Error message is shown;
+
 test("Running without config should throw an error and exit a process", () => {
   let stderr = "";
   jest
