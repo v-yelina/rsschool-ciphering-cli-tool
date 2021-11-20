@@ -1,10 +1,10 @@
-const checkInputFile = require("../optionsHandling/checkInputFile");
+const checkOutputFile = require("../optionsHandling/checkOutputFile");
 
 jest.mock("fs");
 const fs = require("fs");
 
-describe("Checking given input file", () => {
-  test("Should show an error message and exit process if given input file doesnt exist or with no read access", () => {
+describe("Checking given output file", () => {
+  test("Should show an error message and exit process if given output file doesnt exist or with no read access", () => {
     let stderr = "";
     jest
       .spyOn(process.stderr, "write")
@@ -17,10 +17,9 @@ describe("Checking given input file", () => {
     fs.accessSync.mockImplementation(() => {
       throw new Error();
     });
-
-    checkInputFile("./inpt.txt");
+    checkOutputFile("./inpt.txt");
     expect(stderr).toBe(
-      "ERROR: Input file doesn't exist or there is not permission to read it"
+      "ERROR: Output file doesn't exist or there is not permission to write in it"
     );
     expect(exit).toHaveBeenCalledWith(1);
   });
