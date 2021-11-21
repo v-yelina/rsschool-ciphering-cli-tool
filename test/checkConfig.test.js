@@ -38,6 +38,8 @@ describe("Checking config option", () => {
     expect(exit).toHaveBeenCalledWith(1);
   });
 
+  // Input: User passes correct sequence of symbols as argument for --config that matches regular expression; Result: test passed
+
   test("Running with valid config option should not exit a process", () => {
     const exit = jest.fn();
     jest.spyOn(process, "exit").mockImplementation(exit);

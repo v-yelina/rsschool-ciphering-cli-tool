@@ -3,6 +3,8 @@ const checkInputFile = require("../optionsHandling/checkInputFile");
 jest.mock("fs");
 const fs = require("fs");
 
+// Input: User passes -i argument with path that doesn't exist or with no read access; Result: Error message is shown;
+
 describe("Checking given input file", () => {
   test("Should show an error message and exit process if given input file doesnt exist or with no read access", () => {
     let stderr = "";

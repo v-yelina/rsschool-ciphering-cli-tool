@@ -3,6 +3,8 @@ const checkOutputFile = require("../optionsHandling/checkOutputFile");
 jest.mock("fs");
 const fs = require("fs");
 
+// Input: User passes -o argument with path to directory that doesn't exist or with no read access; Result: Error message is shown;
+
 describe("Checking given output file", () => {
   test("Should show an error message and exit process if given output file doesnt exist or with no read access", () => {
     let stderr = "";
