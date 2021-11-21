@@ -22,19 +22,7 @@
     "jest": "^27.3.1"
   },
   "jest": {
-    "collectCoverage": true,
-    "collectCoverageFrom": [
-      "**/*.js",
-      "!**/node_modules/**",
-      "!**/coverage/**",
-      "!**/streams/**"
-    ],
-    "coverageThreshold": {
-      "global": {
-        "branches": 85,
-        "lines": 70
-      }
-    }
+    "collectCoverage": true
   }
   
 }
