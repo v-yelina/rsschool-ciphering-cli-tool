@@ -1,0 +1,28 @@
+{
+  "name": "ciphering-cli",
+  "version": "1.0.0",
+  "description": "encoding and decoding a text by by 3 substitution ciphers",
+  "main": "index.js",
+  "bin": "./index.js",
+  "scripts": {
+    "test": "jest --detectOpenHandles",
+    "test:coverage": "jest --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/v-yelina/rsschool-ciphering-cli-tool.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/v-yelina/rsschool-ciphering-cli-tool/issues"
+  },
+  "homepage": "https://github.com/v-yelina/rsschool-ciphering-cli-tool#readme",
+  "devDependencies": {
+    "jest": "^27.3.1"
+  },
+  "jest": {
+    "collectCoverage": true
+  }
+  
+}
